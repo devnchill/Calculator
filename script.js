@@ -37,4 +37,3 @@ function operate(firstNumber, operator, secondNumber) {
     return;
   }
 }
-//operate(8, "*", 3);
