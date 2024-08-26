@@ -19,8 +19,16 @@ body {
 }
 
 .display-screen {
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  height: 30px;
   border: 1px solid black;
   text-align: center;
+}
+
+.display-screen p {
+  padding-right: 5px;
 }
 
 .button-layout {
