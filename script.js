@@ -22,7 +22,7 @@ function add(param1, param2) {
   console.log(result);
 }
 function remainder(param1, param2) {
-  result = roundToTwo(param1 % param2);
+  result = param1 % param2;
   displayScreen.textContent = result;
   console.log(result);
 }
@@ -44,8 +44,7 @@ function divide(param1, param2) {
     firstNumber = "";
     secondNumber = "";
     operator = "";
-    populate();
-    handleOperator();
+    return;
   }
   result = roundToTwo(param1 / param2);
   displayScreen.textContent = result;
@@ -81,6 +80,8 @@ function operate(firstNumber, operator, secondNumber) {
       subtract(firstNumber, secondNumber);
     } else if (operator == "*") {
       multiply(firstNumber, secondNumber);
+    } else if (operator == "%") {
+      remainder(firstNumber, secondNumber);
     } else {
       divide(firstNumber, secondNumber);
     }
