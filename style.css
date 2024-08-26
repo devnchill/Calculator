@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  border: 0;
 }
 
 html,
@@ -19,11 +20,12 @@ body {
 }
 
 .display-screen {
+  border: 1px solid purple;
+  border-radius: 2px;
   display: flex;
   align-items: center;
   justify-content: right;
   height: 30px;
-  border: 1px solid black;
   text-align: center;
 }
 
@@ -60,5 +62,25 @@ body {
 }
 
 .button-layout button {
+  margin: 5px;
   padding: 10px;
+  border-radius: 3px;
+}
+
+.numbers {
+  border: 0.5px solid yellow;
+}
+
+.operator {
+  border: 0.5px solid greenyellow;
+}
+#clear {
+  border: 0.5px solid red;
+}
+#point,
+#equalto {
+  border: 0.5px solid burlywood;
+}
+button:hover {
+  background-color: pink;
 }
