@@ -108,7 +108,9 @@ body {
 .operator:hover {
   background-color: yellow;
 }
-
+#changesign:hover {
+  background-color: orange;
+}
 .numbers:hover {
   background-color: pink;
 }
