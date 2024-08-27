@@ -17,30 +17,40 @@ let activeOperatorButton = null;
 function roundToTwo(param) {
   return Math.round(param * 100) / 100;
 }
+
 function add(param1, param2) {
   result = roundToTwo(param1 + param2);
   displayScreen.textContent = result;
+  console.log(result);
 }
+
 function remainder(param1, param2) {
   result = param1 % param2;
   displayScreen.textContent = result;
+  console.log(result);
 }
+
 function subtract(param1, param2) {
   result = roundToTwo(param1 - param2);
   displayScreen.textContent = result;
+  console.log(result);
 }
+
 function multiply(param1, param2) {
   result = roundToTwo(param1 * param2);
   displayScreen.textContent = result;
+  console.log(result);
 }
+
 function divide(param1, param2) {
   if (param2 === 0) {
-    alert("Cannot divide by zero.");
+    alert("Seems like you skipped your middleschool. No Problem I'll teach you. If you divide a number by 0, it won't be defined.");
     clearAll();
     return;
   }
   result = roundToTwo(param1 / param2);
   displayScreen.textContent = result;
+  console.log(result);
 }
 
 function changingSign() {
@@ -65,6 +75,7 @@ function handleOperator() {
       }
       button.style.background = "lightblue";
       activeOperatorButton = button;
+
       if (firstNumber !== "" && secondNumber !== "") {
         operate(firstNumber, operator, secondNumber);
         firstNumber = result;
@@ -80,26 +91,35 @@ function handleOperator() {
 function operate(firstNumber, operator, secondNumber) {
   firstNumber = parseFloat(firstNumber);
   secondNumber = parseFloat(secondNumber);
+
   if (possibleOperators.includes(operator)) {
-    if (operator === "+") {
-      add(firstNumber, secondNumber);
-    } else if (operator === "-") {
-      subtract(firstNumber, secondNumber);
-    } else if (operator === "*") {
-      multiply(firstNumber, secondNumber);
-    } else if (operator === "%") {
-      remainder(firstNumber, secondNumber);
-    } else {
-      divide(firstNumber, secondNumber);
+    switch (operator) {
+      case "+":
+        add(firstNumber, secondNumber);
+        break;
+      case "-":
+        subtract(firstNumber, secondNumber);
+        break;
+      case "*":
+        multiply(firstNumber, secondNumber);
+        break;
+      case "%":
+        remainder(firstNumber, secondNumber);
+        break;
+      case "/":
+        divide(firstNumber, secondNumber);
+        break;
+      default:
+        console.log("Invalid Operator Found");
     }
   } else {
     console.log("Invalid Operator Found");
-    return;
   }
 }
 
 function populate() {
   let allNumberButtons = document.querySelectorAll(".numbers");
+
   allNumberButtons.forEach((button) => {
     button.addEventListener("click", () => {
       if (activeOperatorButton) {
@@ -119,6 +139,7 @@ function populate() {
       }
     });
   });
+
   point.addEventListener("click", () => {
     if (!waitingForSecondNumber) {
       if (!firstNumber.includes(".")) {
@@ -140,14 +161,18 @@ function clearAll() {
   secondNumber = "";
   operator = "";
   waitingForSecondNumber = false;
+
   if (activeOperatorButton) {
     activeOperatorButton.style.background = "";
     activeOperatorButton = null;
   }
 }
 
+// Event Listeners
 changeSign.addEventListener("click", changingSign);
+
 clear.addEventListener("click", clearAll);
+
 equalTo.addEventListener("click", () => {
   if (firstNumber && operator && secondNumber) {
     operate(firstNumber, operator, secondNumber);
@@ -160,6 +185,7 @@ equalTo.addEventListener("click", () => {
   }
 });
 
+// Initialize
 populate();
 handleOperator();
 
