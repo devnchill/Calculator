@@ -1,4 +1,4 @@
-//Variables
+// Variables
 let firstNumber = "";
 let possibleOperators = ["+-", "+", "%", "-", "*", "/"];
 let operator;
@@ -13,58 +13,50 @@ let changeSign = document.querySelector("#changesign");
 let result;
 let activeOperatorButton = null;
 
-//functions for calculations
+// Functions for calculations
 function roundToTwo(param) {
   return Math.round(param * 100) / 100;
 }
 function add(param1, param2) {
   result = roundToTwo(param1 + param2);
   displayScreen.textContent = result;
-  console.log(result);
 }
 function remainder(param1, param2) {
   result = param1 % param2;
   displayScreen.textContent = result;
-  console.log(result);
 }
 function subtract(param1, param2) {
   result = roundToTwo(param1 - param2);
   displayScreen.textContent = result;
-  console.log(result);
 }
 function multiply(param1, param2) {
   result = roundToTwo(param1 * param2);
   displayScreen.textContent = result;
-  console.log(result);
 }
 function divide(param1, param2) {
-  if (param2 == 0) {
-    alert(
-      "Seems like you skipped your middleschool . No Problem I'll teach you . If you divide a no by 0 it won't be defined.",
-    );
-    firstNumber = "";
-    secondNumber = "";
-    operator = "";
+  if (param2 === 0) {
+    alert("Cannot divide by zero.");
+    clearAll();
     return;
   }
   result = roundToTwo(param1 / param2);
   displayScreen.textContent = result;
-  console.log(result);
 }
 
 function changingSign() {
   if (!waitingForSecondNumber) {
-    if (firstNumber != "") {
+    if (firstNumber !== "") {
       firstNumber = (parseFloat(firstNumber) * -1).toString();
       displayScreen.textContent = firstNumber;
     }
   } else {
-    if (secondNumber != "") {
+    if (secondNumber !== "") {
       secondNumber = (parseFloat(secondNumber) * -1).toString();
       displayScreen.textContent = secondNumber;
     }
   }
 }
+
 function handleOperator() {
   operatorButtons.forEach((button) => {
     button.addEventListener("click", () => {
@@ -73,7 +65,7 @@ function handleOperator() {
       }
       button.style.background = "lightblue";
       activeOperatorButton = button;
-      if (firstNumber != "" && secondNumber != "") {
+      if (firstNumber !== "" && secondNumber !== "") {
         operate(firstNumber, operator, secondNumber);
         firstNumber = result;
         secondNumber = "";
@@ -89,13 +81,13 @@ function operate(firstNumber, operator, secondNumber) {
   firstNumber = parseFloat(firstNumber);
   secondNumber = parseFloat(secondNumber);
   if (possibleOperators.includes(operator)) {
-    if (operator == "+") {
+    if (operator === "+") {
       add(firstNumber, secondNumber);
-    } else if (operator == "-") {
+    } else if (operator === "-") {
       subtract(firstNumber, secondNumber);
-    } else if (operator == "*") {
+    } else if (operator === "*") {
       multiply(firstNumber, secondNumber);
-    } else if (operator == "%") {
+    } else if (operator === "%") {
       remainder(firstNumber, secondNumber);
     } else {
       divide(firstNumber, secondNumber);
@@ -105,6 +97,7 @@ function operate(firstNumber, operator, secondNumber) {
     return;
   }
 }
+
 function populate() {
   let allNumberButtons = document.querySelectorAll(".numbers");
   allNumberButtons.forEach((button) => {
@@ -115,7 +108,7 @@ function populate() {
       }
 
       if (!waitingForSecondNumber) {
-        if (displayScreen.textContent == "Clear") {
+        if (displayScreen.textContent === "Clear") {
           displayScreen.textContent = "";
         }
         firstNumber += button.textContent;
@@ -140,17 +133,28 @@ function populate() {
     }
   });
 }
-changeSign.addEventListener("click", changingSign);
-clear.addEventListener("click", () => {
+
+function clearAll() {
   displayScreen.textContent = "Clear";
   firstNumber = "";
   secondNumber = "";
   operator = "";
   waitingForSecondNumber = false;
-});
+  if (activeOperatorButton) {
+    activeOperatorButton.style.background = "";
+    activeOperatorButton = null;
+  }
+}
+
+changeSign.addEventListener("click", changingSign);
+clear.addEventListener("click", clearAll);
 equalTo.addEventListener("click", () => {
   if (firstNumber && operator && secondNumber) {
     operate(firstNumber, operator, secondNumber);
+    firstNumber = result;
+    secondNumber = "";
+    operator = "";
+    waitingForSecondNumber = false;
   } else {
     alert("Invalid Input. Enter again");
   }
@@ -158,3 +162,4 @@ equalTo.addEventListener("click", () => {
 
 populate();
 handleOperator();
+
