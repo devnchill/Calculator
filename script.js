@@ -1,6 +1,6 @@
 //Variables
 let firstNumber = "";
-let possibleOperators = ["+", "%", "-", "*", "/"];
+let possibleOperators = ["+-", "+", "%", "-", "*", "/"];
 let operator;
 let secondNumber = "";
 let waitingForSecondNumber = false;
@@ -9,6 +9,7 @@ let displayScreen = document.querySelector("#display-p");
 let equalTo = document.querySelector("#equalto");
 let clear = document.querySelector("#clear");
 let point = document.querySelector("#point");
+let changeSign = document.querySelector("#changesign");
 let result;
 let activeOperatorButton = null;
 
@@ -39,7 +40,7 @@ function multiply(param1, param2) {
 function divide(param1, param2) {
   if (param2 == 0) {
     alert(
-      "Seems like you skipped your middleschool . No Problem I'll teach you . If you divide a no by 0 it'll won't be defined.",
+      "Seems like you skipped your middleschool . No Problem I'll teach you . If you divide a no by 0 it won't be defined.",
     );
     firstNumber = "";
     secondNumber = "";
@@ -49,6 +50,18 @@ function divide(param1, param2) {
   result = roundToTwo(param1 / param2);
   displayScreen.textContent = result;
   console.log(result);
+}
+
+function changingSign() {
+  if (!waitingForSecondNumber) {
+    if (firstNumber != "") {
+      firstNumber = (parseFloat(firstNumber) * -1).toString();
+    }
+  } else {
+    if (secondNumber != "") {
+      secondNumber = (parseFloat(secondNumber) * -1).toString();
+    }
+  }
 }
 function handleOperator() {
   operatorButtons.forEach((button) => {
@@ -125,6 +138,7 @@ function populate() {
     }
   });
 }
+changeSign.addEventListener("click", changingSign);
 clear.addEventListener("click", () => {
   displayScreen.textContent = "Clear";
   firstNumber = "";
@@ -139,5 +153,6 @@ equalTo.addEventListener("click", () => {
     alert("Invalid Input. Enter again");
   }
 });
+
 populate();
 handleOperator();
