@@ -56,12 +56,12 @@ function changingSign() {
   if (!waitingForSecondNumber) {
     if (firstNumber != "") {
       firstNumber = (parseFloat(firstNumber) * -1).toString();
-      displayScreen.textContent=firstNumber;
+      displayScreen.textContent = firstNumber;
     }
   } else {
     if (secondNumber != "") {
       secondNumber = (parseFloat(secondNumber) * -1).toString();
-      displayScreen.textContent=secondNumber;
+      displayScreen.textContent = secondNumber;
     }
   }
 }
