@@ -99,7 +99,9 @@ body {
   border: 2px solid red;
 }
 
-#point,
+#point{
+  border: 2px solid yellow;
+}
 #equalto {
   border: 2px solid burlywood;
 }
@@ -113,10 +115,14 @@ body {
 }
 
 .operator:hover {
-  background-color: yellow;
+  background-color: greenyellow;
+}
+
+#changesign {
+  border: 2px solid greenyellow;
 }
 #changesign:hover {
-  background-color: orange;
+  background-color: greenyellow;
 }
 .numbers:hover {
   background-color: pink;
