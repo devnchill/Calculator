@@ -81,6 +81,19 @@ body {
 #equalto {
   border: 0.5px solid burlywood;
 }
-button:hover {
+
+#equalto:hover {
+  background-color: blueviolet;
+}
+
+#clear:hover {
+  background-color: red;
+}
+
+.operator:hover {
+  background-color: yellow;
+}
+
+.numbers:hover {
   background-color: pink;
 }
