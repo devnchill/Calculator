@@ -137,8 +137,6 @@ equalTo.addEventListener("click", () => {
     operate(firstNumber, operator, secondNumber);
   } else {
     alert("Invalid Input. Enter again");
-    populate();
-    handleOperator();
   }
 });
 populate();
