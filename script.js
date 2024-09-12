@@ -44,7 +44,9 @@ function multiply(param1, param2) {
 
 function divide(param1, param2) {
   if (param2 === 0) {
-    alert("Seems like you skipped your middleschool. No Problem I'll teach you. If you divide a number by 0, it won't be defined.");
+    alert(
+      "Seems like you skipped your middleschool. No Problem I'll teach you. If you divide a number by 0, it won't be defined.",
+    );
     clearAll();
     return;
   }
@@ -119,7 +121,6 @@ function operate(firstNumber, operator, secondNumber) {
 
 function populate() {
   let allNumberButtons = document.querySelectorAll(".numbers");
-
   allNumberButtons.forEach((button) => {
     button.addEventListener("click", () => {
       if (activeOperatorButton) {
@@ -188,4 +189,3 @@ equalTo.addEventListener("click", () => {
 // Initialize
 populate();
 handleOperator();
-
