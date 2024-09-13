@@ -1,6 +1,12 @@
 // Variables
 let firstNumber = "";
-let possibleOperators = ["+-", "+", "%", "-", "*", "/"];
+let possibleOperators = ["+", "%", "-", "*", "/"];
+let possibleNumbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+const PLUSBUTTON = document.querySelector("#plus");
+const MINUSBUTTON = document.querySelector("#minus");
+const MULTIPLYBUTTON = document.querySelector("#multiply");
+const DIVIDEBUTTON = document.querySelector("#divide");
+const MODULUSBUTTON = document.querySelector("#modulus");
 let operator;
 let secondNumber = "";
 let waitingForSecondNumber = false;
@@ -12,6 +18,90 @@ let point = document.querySelector("#point");
 let changeSign = document.querySelector("#changesign");
 let result;
 let activeOperatorButton = null;
+let keyPressed;
+
+window.addEventListener("keyup", logKey);
+function logKey(e) {
+  keyPressed = e.key;
+
+  // Check if an operator is pressed
+  if (possibleOperators.includes(keyPressed)) {
+    if (firstNumber !== "" && secondNumber !== "") {
+      operate(firstNumber, operator, secondNumber);
+      firstNumber = result;
+      secondNumber = "";
+      displayScreen.textContent = result;
+    }
+
+    // Set the operator
+    if (activeOperatorButton) {
+      activeOperatorButton.style.background = "";
+    }
+
+    switch (keyPressed) {
+      case "+":
+        operator = "+";
+        PLUSBUTTON.style.background = "lightblue";
+        activeOperatorButton = PLUSBUTTON;
+        break;
+      case "-":
+        operator = "-";
+        MINUSBUTTON.style.background = "lightblue";
+        activeOperatorButton = MINUSBUTTON;
+        break;
+      case "*":
+        operator = "*";
+        MULTIPLYBUTTON.style.background = "lightblue";
+        activeOperatorButton = MULTIPLYBUTTON;
+        break;
+      case "%":
+        operator = "%";
+        MODULUSBUTTON.style.background = "lightblue";
+        activeOperatorButton = MODULUSBUTTON;
+        break;
+      case "/":
+        operator = "/";
+        DIVIDEBUTTON.style.background = "lightblue";
+        activeOperatorButton = DIVIDEBUTTON;
+        break;
+      default:
+        console.log("Invalid Operator Found");
+    }
+
+    // After an operator is pressed, we should expect a second number
+    waitingForSecondNumber = true;
+  } else if (keyPressed == ".") {
+    if (!waitingForSecondNumber) {
+      if (!firstNumber.includes(".")) {
+        firstNumber += ".";
+        displayScreen.textContent = firstNumber;
+      }
+    } else {
+      if (!secondNumber.includes(".")) {
+        secondNumber += ".";
+        displayScreen.textContent = secondNumber;
+      }
+    }
+  }
+  // Check if a number is pressed
+  else if (possibleNumbers.includes(keyPressed) && !waitingForSecondNumber) {
+    firstNumber += keyPressed;
+    displayScreen.textContent = firstNumber;
+  } else if (possibleNumbers.includes(keyPressed) && waitingForSecondNumber) {
+    secondNumber += keyPressed;
+    displayScreen.textContent = secondNumber;
+  } else if (keyPressed === "=" || keyPressed === "Enter") {
+    if (firstNumber && operator && secondNumber) {
+      operate(firstNumber, operator, secondNumber);
+      firstNumber = result;
+      secondNumber = "";
+      operator = "";
+      waitingForSecondNumber = false;
+    } else {
+      alert("Invalid Input. Enter again");
+    }
+  }
+}
 
 // Functions for calculations
 function roundToTwo(param) {
@@ -54,7 +144,7 @@ function divide(param1, param2) {
   displayScreen.textContent = result;
   console.log(result);
 }
-
+// will change the sign of the entered number
 function changingSign() {
   if (!waitingForSecondNumber) {
     if (firstNumber !== "") {
@@ -127,7 +217,6 @@ function populate() {
         activeOperatorButton.style.background = "";
         activeOperatorButton = null;
       }
-
       if (!waitingForSecondNumber) {
         if (displayScreen.textContent === "Clear") {
           displayScreen.textContent = "";
@@ -185,7 +274,6 @@ equalTo.addEventListener("click", () => {
     alert("Invalid Input. Enter again");
   }
 });
-
 // Initialize
 populate();
 handleOperator();
